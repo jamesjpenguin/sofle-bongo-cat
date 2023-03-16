@@ -67,7 +67,7 @@ char wpm_str[10];
 enum sofle_layers {
     _DEFAULTS = 0,
     _QWERTY = 0,
-    _LOWER,
+    _ALT,
     _RAISE,
     _ADJUST,
     _NUMPAD,
@@ -76,8 +76,8 @@ enum sofle_layers {
 
 enum custom_keycodes {
     KC_QWERTY = SAFE_RANGE,
-    KC_LOWER,
-    KC_RAISE,
+//    KC_LOWER,
+//    KC_RAISE,
     KC_ADJUST,
     //KC_D_MUTE
 };
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
   KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,  KC_MUTE,   KC_MPLY,  KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_LSFT,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-                 MO(_LOWER), KC_LALT, KC_LGUI, KC_SPC,  KC_BSPC  , KC_ENT, MO(_NUMPAD) , MO(_ADJUST), MO(_RAISE), KC_RIGHT
+                 MO(_ALT), KC_LALT, KC_LGUI, KC_SPC,  KC_BSPC  , KC_ENT, MO(_NUMPAD) , KC_CAPS , MO(_ADJUST), KC_RIGHT
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
 ),
 
@@ -142,17 +142,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
-[_LOWER] = LAYOUT(
+[_ALT] = LAYOUT(
   //,------------------------------------------------.                    ,---------------------------------------------------.
   KC_GRV,  KC_F1,  KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   KC_GRV,   KC_1,   KC_2,    KC_3,    KC_UP,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_BSPC,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  _______,  _____,  _____ ,   KC_LEFT,   KC_DOWN, KC_RIGHT,             KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT, KC_NO,   KC_DEL,
+  _______,  _______,  _______,   KC_LEFT,   KC_DOWN, KC_RIGHT,                KC_LEFT, KC_DOWN, KC_UP,  KC_RGHT, KC_NO,   KC_DEL,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
   _______,  KC_NO,  KC_NO,   KC_NO,   KC_WH_D, KC_PGDN,_______,    _______,KC_NO,  KC_NO,  KC_NO,   KC_NO,   KC_NO,    _______,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-                 _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
+                 _______, _______, _______, _______, KC_DEL ,     _______, _______, _______, _______, _______
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
 ),
 /* RAISE
@@ -323,8 +323,8 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 	layer_symbol_lights,
     layer_command_lights,
 	layer_numpad_lights,
-	layer_switcher_lights,  // Overrides other layers
-	layer_colemakdh_lights
+	layer_switcher_lights  // Overrides other layers
+	//layer_colemakdh_lights
 );
 
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -332,7 +332,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 	//rgblight_set_layer_state(7, layer_state_cmp(state, _DEFAULTS) && layer_state_cmp(default_layer_state,_COLEMAKDH));
 
 
-	rgblight_set_layer_state(1, layer_state_cmp(state, _LOWER));
+	rgblight_set_layer_state(1, layer_state_cmp(state, _ALT));
 	rgblight_set_layer_state(2, layer_state_cmp(state, _RAISE));
 	rgblight_set_layer_state(3, layer_state_cmp(state, _ADJUST));
 	rgblight_set_layer_state(4, layer_state_cmp(state, _NUMPAD));
@@ -489,8 +489,8 @@ uint8_t current_tap_frame = 0;
          case _RAISE:
              oled_write_P(PSTR("Raise"), false);
              break;
-         case _LOWER:
-             oled_write_P(PSTR("Lower"), false);
+         case _ALT:
+             oled_write_P(PSTR("Alt"), false);
              break;
          case _ADJUST:
              oled_write_P(PSTR("Adj\n"), false);
@@ -690,7 +690,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				//	}
 				break;
 			case _RAISE:
-			case _LOWER:
+			case _ALT:
 					if (clockwise) {
 						tap_code(KC_DOWN);
 					} else {
