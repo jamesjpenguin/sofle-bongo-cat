@@ -1,0 +1,6 @@
+(fp_lib_table
+  (lib (name sofle)(type KiCad)(uri /Users/jpeng/personal/sofle_git/SofleKeyboard/Sofle_RGB/PCB)(options "")(descr ""))
+  (lib (name custom)(type KiCad)(uri "/Users/jpeng/personal/sofle_git/SofleKeyboard/Sofle_RGB/PCB/custom mods")(options "")(descr ""))
+  (lib (name pretty)(type KiCad)(uri /Users/jpeng/personal/sofle_git/SofleKeyboard/Sofle_RGB/PCB/SofleRGB.pretty)(options "")(descr ""))
+  (lib (name SofleRGB)(type KiCad)(uri ${KIPRJMOD}/SofleRGB.pretty)(options "")(descr ""))
+)
